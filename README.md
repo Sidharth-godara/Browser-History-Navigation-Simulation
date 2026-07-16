@@ -1,14 +1,26 @@
-# Browser-History-Navigation-Simulation
-**Browser History Navigation Simulation**
+# Browser History Navigation Simulation
 
-Developed a desktop application that simulates browser history navigation using a **Doubly Linked List** for efficient backward and forward navigation. The application features a professional GUI with history management, bookmark management, and search functionality. Integrated a **MySQL database** to store browsing history, bookmarks, user information, and timestamps. Users can visit URLs, navigate through previously visited pages, search browsing history, manage bookmarks, and clear history based on custom criteria. The project demonstrates practical implementation of data structures, database integration, CRUD operations, and GUI-based application development.
+A Python-based desktop application that simulates browser history management using a **Doubly Linked List** and **MySQL** database integration. The project replicates core browser navigation features, including **Back** and **Forward** navigation, while providing a modern graphical user interface built with **Tkinter**.
 
-**Key Features:**
+The application stores browsing history, bookmarks, visited URLs, page titles, and timestamps in a MySQL database, ensuring persistent data management. It also includes advanced features such as history search, bookmark management, automatic history recording, and options to delete browsing history based on date or recent entries.
 
-* Browser Back and Forward navigation using a Doubly Linked List
-* MySQL database integration for persistent data storage
-* Browser history management with timestamps
-* Bookmark creation and management
-* Search functionality for history and bookmarks
-* Clear history by date, recent entries, or all records
-* Professional GUI developed using Python Tkinter
+This project demonstrates the practical implementation of **Data Structures and Algorithms (DSA)** through a Doubly Linked List, along with database management, CRUD operations, GUI development, and browser history simulation in a real-world application.
+
+## Features
+
+* 🔹 Browser Back and Forward navigation using a Doubly Linked List
+* 🔹 MySQL database integration for persistent storage
+* 🔹 User-friendly GUI built with Tkinter
+* 🔹 Automatic history tracking with timestamps
+* 🔹 Bookmark creation and management
+* 🔹 Search functionality for browsing history
+* 🔹 Delete history by date, recent entries, or all records
+* 🔹 CRUD operations for history and bookmarks
+
+## Technologies Used
+
+* Python
+* Tkinter
+* MySQL
+* Doubly Linked List
+* SQL (CRUD Operations)
