@@ -1,0 +1,144 @@
+# MySQL + C Connection Setup Guide
+
+## Step 1: Install MySQL Server 8.0
+
+### Download MySQL
+1. Go to: https://dev.mysql.com/downloads/mysql/
+2. Select **MySQL Community Server** (latest version)
+3. Choose **Windows (x86, 64-bit) - MSI Installer**
+4. Download the file
+
+### Install MySQL
+1. Run the installer
+2. **Setup Type**: Select "Server only" or "Developer Default"
+3. **MySQL Server Configuration**:
+   - Port: 3306 (default)
+   - Config Type: "Server Machine"
+4. **MySQL Server User Accounts**:
+   - Root Password: (set a strong password, e.g., "RootPass123")
+   - Add User:
+     - Username: **bh_user**
+     - Password: **StrongPass123**
+     - Select "Create a Windows Service" 
+5. Complete the installation
+
+---
+
+## Step 2: Verify MySQL Installation
+
+Open PowerShell and run:
+```powershell
+mysql --version
+```
+
+Should output: `mysql  Ver 8.0.x ...`
+
+---
+
+## Step 3: Create Database and User
+
+Open PowerShell and login to MySQL:
+```powershell
+mysql -u root -p
+```
+Enter your root password when prompted.
+
+Then run these SQL commands:
+```sql
+-- Create database
+CREATE DATABASE browser_history;
+
+-- Create user (if not already created)
+CREATE USER 'bh_user'@'localhost' IDENTIFIED BY 'StrongPass123';
+
+-- Grant permissions
+GRANT ALL PRIVILEGES ON browser_history.* TO 'bh_user'@'localhost';
+
+-- Apply changes
+FLUSH PRIVILEGES;
+
+-- Exit
+EXIT;
+```
+
+---
+
+## Step 4: Import Database Schema
+
+Run this command in PowerShell:
+```powershell
+mysql -u bh_user -p browser_history < "c:\Users\godar\OneDrive\Desktop\BHNS\browser_history.sql"
+```
+
+Enter password: **StrongPass123**
+
+---
+
+## Step 5: Test Connection with C Program
+
+First, test the simple connection:
+```powershell
+cd "c:\Users\godar\OneDrive\Desktop\BHNS"
+gcc -o mysql_test mysql_test.c -I"C:\Program Files\MySQL\MySQL Server 8.0\include" -L"C:\Program Files\MySQL\MySQL Server 8.0\lib" -lmysqlclient
+.\mysql_test.exe
+```
+
+If successful, you'll see:
+```
+=== MySQL Connection Test ===
+✓ MySQL initialized
+Connecting to MySQL server...
+✓ Successfully connected to MySQL!
+✓ Database: browser_history
+✓ User: bh_user
+Testing a simple query...
+✓ MySQL Version: 8.0.x
+=== Connection Test PASSED ===
+```
+
+---
+
+## Step 6: Compile Your Full Program
+
+```powershell
+gcc -o browser_history browser_history.c -I"C:\Program Files\MySQL\MySQL Server 8.0\include" -L"C:\Program Files\MySQL\MySQL Server 8.0\lib" -lmysqlclient
+.\browser_history.exe
+```
+
+---
+
+## Troubleshooting
+
+### "mysql_config is not recognized"
+- You're on Windows - use the full path method instead:
+```powershell
+gcc -o program program.c -I"C:\Program Files\MySQL\MySQL Server 8.0\include" -L"C:\Program Files\MySQL\MySQL Server 8.0\lib" -lmysqlclient
+```
+
+### "Access denied for user 'bh_user'"
+- Verify credentials in code (DB_USER, DB_PASS)
+- Check MySQL user exists: `mysql -u root -p -e "SELECT user FROM mysql.user;"`
+
+### "Can't connect to MySQL server"
+- Verify MySQL service is running:
+```powershell
+Get-Service MySQL80 | Start-Service
+```
+
+### "Cannot find mysql.h"
+- MySQL development files not installed
+- Reinstall MySQL and check "Development Components" during installation
+
+---
+
+## Quick Reference
+
+| Item | Value |
+|------|-------|
+| Host | localhost |
+| Port | 3306 |
+| Database | browser_history |
+| User | bh_user |
+| Password | StrongPass123 |
+| MySQL Install Path | C:\Program Files\MySQL\MySQL Server 8.0 |
+
